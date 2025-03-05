@@ -109,50 +109,53 @@ const SalesContest = ({ isSidebarOpen }) => {
       </div>
 
       {/* Contest Table */}
-      <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg mt-6">
-        <h3 className="text-lg font-semibold mb-4">Contest Status</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-gray-700 text-lg">
-            <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6">Team Name</th>
-                <th className="py-3 px-6">Contest Name</th>
-                <th className="py-3 px-6">Target</th>
-                <th className="py-3 px-6">Contest Update</th>
-              </tr>
-            </thead>
-            <tbody>
-              {displayedRows.map((row, index) => (
-                <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
-                  <td className="py-3 px-6">{row.team}</td>
-                  <td className="py-3 px-6">{row.contest}</td>
-                  <td className="py-3 px-6">{row.target}</td>
-                  <td className="py-3 px-6">{row.update}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg mt-6 w-full">
+  <h3 className="text-lg font-semibold mb-4 text-center">Contest Status</h3>
 
-        {/* Pagination */}
-        <div className="flex justify-center mt-4 space-x-2">
-          <button
-            className={`px-4 py-2 rounded-md ${page === 1 ? "bg-gray-200" : "bg-blue-700 text-white"}`}
-            disabled={page === 1}
-            onClick={() => setPage(page - 1)}
-          >
-            <FaChevronLeft />
-          </button>
-          {[...Array(totalPages)].map((_, i) => (
-            <button key={i} className={`px-4 py-2 rounded-md ${page === i + 1 ? "bg-blue-700 text-white" : "bg-gray-100"}`} onClick={() => setPage(i + 1)}>
-              {i + 1}
-            </button>
-          ))}
-          <button className={`px-4 py-2 rounded-md ${page === totalPages ? "bg-gray-200" : "bg-blue-700 text-white"}`} disabled={page === totalPages} onClick={() => setPage(page + 1)}>
-            <FaChevronRight />
-          </button>
-        </div>
-      </div>
+  <div className="overflow-x-auto">
+    <table className="w-full text-gray-700 text-lg text-center border-collapse">
+      <thead>
+        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th className="py-3 px-6 border">Team Name</th>
+          <th className="py-3 px-6 border">Contest Name</th>
+          <th className="py-3 px-6 border">Target</th>
+          <th className="py-3 px-6 border">Contest Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {displayedRows.map((row, index) => (
+          <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
+            <td className="py-3 px-6 border">{row.team}</td>
+            <td className="py-3 px-6 border">{row.contest}</td>
+            <td className="py-3 px-6 border">{row.target}</td>
+            <td className="py-3 px-6 border">{row.update}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Pagination */}
+  <div className="flex justify-center mt-4 space-x-2">
+    <button
+      className={`px-4 py-2 rounded-md ${page === 1 ? "bg-gray-200" : "bg-blue-700 text-white"}`}
+      disabled={page === 1}
+      onClick={() => setPage(page - 1)}
+    >
+      <FaChevronLeft />
+    </button>
+    {[...Array(totalPages)].map((_, i) => (
+      <button key={i} className={`px-4 py-2 rounded-md ${page === i + 1 ? "bg-blue-700 text-white" : "bg-gray-100"}`} onClick={() => setPage(i + 1)}>
+        {i + 1}
+      </button>
+    ))}
+    <button className={`px-4 py-2 rounded-md ${page === totalPages ? "bg-gray-200" : "bg-blue-700 text-white"}`} disabled={page === totalPages} onClick={() => setPage(page + 1)}>
+      <FaChevronRight />
+    </button>
+  </div>
+</div>
+
+
     </div>
   );
 };

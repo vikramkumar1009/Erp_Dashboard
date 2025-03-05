@@ -26,23 +26,28 @@ const SalesManagement = ({ isSidebarOpen }) => {
   const [salesData, setSalesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [gsalesData, setGalesData] = useState(manualSalesData);
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+
+  // Pagination state
+  const [customerPage, setCustomerPage] = useState(1);
+  const [productPage, setProductPage] = useState(1);
   const rowsPerPage = 5;
-  
-  const totalPages = Math.ceil(customerData.length / rowsPerPage);
-  const displayedCustomers = customerData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-  
+
+
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      navigate("/signin");
+      return;
+    }
     fetchCustomerData();
     fetchSalesData();
   }, [user]);
+ 
 
   const fetchCustomerData = async () => {
     setLoading(true);
     try {
+      
       const response = await axios.get("https://erp-r0hx.onrender.com/api/employee/");
       const updatedCustomers = await Promise.all(
         response.data.map(async (customer) => {
@@ -56,7 +61,6 @@ const SalesManagement = ({ isSidebarOpen }) => {
         })
       );
       setCustomerData(updatedCustomers);
-      setError("");
     } catch (err) {
       setError("Failed to fetch customer data.");
     } finally {
@@ -76,30 +80,43 @@ const SalesManagement = ({ isSidebarOpen }) => {
   const fetchSalesData = async () => {
     try {
       const response = await axios.get("https://erp-r0hx.onrender.com/api/sales/");
-      setSalesData(response.data);
+      console.log("📊 Sales Data:", response.data);
+
+      // Find quantity for each productName
+      const productCounts = response.data.reduce((acc, item) => {
+        acc[item.productName] = (acc[item.productName] || 0) + 1;
+        return acc;
+      }, {});
+
+      // Add quantity field based on productName count
+      const updatedSalesData = response.data.map((item) => ({
+        ...item,
+        quantity: productCounts[item.productName] || 1, // Assign quantity based on product name
+      }));
+
+      setSalesData(updatedSalesData);
+      setLoading(false);
     } catch (err) {
+      console.error("❌ Error fetching sales data:", err);
       setError("Failed to fetch sales data.");
+      setLoading(false);
     }
   };
 
+  // Pagination logic
+  const totalCustomerPages = Math.ceil(customerData.length / rowsPerPage);
+  const totalProductPages = Math.ceil(salesData.length / rowsPerPage);
 
- // 🔹 Handle filtering sales data by month
-  const handleFilter = () => {
-    if (!selectedMonth) {
-      setSalesData(manualSalesData);
-    } else {
-      const filteredData = manualSalesData.filter((data) =>
-        data.month.toLowerCase().includes(selectedMonth.toLowerCase())
-      );
-      setSalesData(filteredData);
-    }
-  };
+  const displayedCustomers = customerData.slice((customerPage - 1) * rowsPerPage, customerPage * rowsPerPage);
+  const displayedProducts = salesData.slice((productPage - 1) * rowsPerPage, productPage * rowsPerPage);
 
   return (
     <div className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
       isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-full"
     }`}>
       <h2 className="text-2xl font-bold mb-4">Sales & Customer Details</h2>
+
+      {/* Sales Graph */}
       <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
         <h3 className="text-lg font-semibold">Sales Report</h3>
         <ResponsiveContainer width="100%" height={250}>
@@ -112,9 +129,13 @@ const SalesManagement = ({ isSidebarOpen }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Tables */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full">
-          <h3 className="text-lg font-semibold">Product Sales</h3>
+        
+        {/* Product Sales Table */}
+        <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px]">
+          <h3 className="text-lg font-semibold mb-4">Product Sales</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-gray-700">
               <thead>
@@ -126,7 +147,7 @@ const SalesManagement = ({ isSidebarOpen }) => {
                 </tr>
               </thead>
               <tbody>
-                {salesData.map((item, index) => (
+                {displayedProducts.map((item, index) => (
                   <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
                     <td className="py-3 px-4">{item.productName || "N/A"}</td>
                     <td className="py-3 px-4">{item.quantity}</td>
@@ -137,45 +158,103 @@ const SalesManagement = ({ isSidebarOpen }) => {
               </tbody>
             </table>
           </div>
+          {/* Pagination */}
+          <div className="flex justify-center mt-1 space-x-2">
+  <button
+    onClick={() => setProductPage((prev) => Math.max(prev - 1, 1))}
+    disabled={productPage === 1}
+    className="px-3 py-2 text-sm rounded-md bg-blue-700 text-white disabled:bg-gray-300"
+  >
+    Prev
+  </button>
+
+  {[...Array(totalProductPages)].map((_, i) => (
+    <button
+      key={i}
+      onClick={() => setProductPage(i + 1)}
+      className={`px-3 py-2 text-sm rounded-md ${
+        productPage === i + 1 ? "bg-blue-700 text-white" : "bg-gray-100"
+      }`}
+    >
+      {i + 1}
+    </button>
+  ))}
+
+  <button
+    onClick={() => setProductPage((prev) => Math.min(prev + 1, totalProductPages))}
+    disabled={productPage === totalProductPages}
+    className="px-3 py-2 text-sm rounded-md bg-blue-700 text-white disabled:bg-gray-300"
+  >
+    Next
+  </button>
+</div>
+
         </div>
-        <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full">
-          <h3 className="text-lg font-semibold">Customer Details</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-gray-700">
-              <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
-                  <th className="py-3 px-4 text-left">Full Name</th>
-                  <th className="py-3 px-4 text-left">Email</th>
-                  <th className="py-3 px-4 text-left">Designation</th>
-                  <th className="py-3 px-4 text-left">Total Sales</th>
-                </tr>
-              </thead>
-              <tbody>
-                {displayedCustomers.map((customer, index) => (
-                  <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
-                    <td className="py-3 px-4">{customer.name}</td>
-                    <td className="py-3 px-4">{customer.email}</td>
-                    <td className="py-3 px-4">{customer.designation}</td>
-                    <td className="py-3 px-4">{customer.totalSales}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+
+        {/* Customer Details Table */}
+        <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px] overflow-hidden">
+  <h3 className="text-lg font-semibold mb-2">Customer Details</h3>
+  <div className="overflow-y-auto max-h-[300px]">
+    <table className="w-full text-gray-700 border-collapse">
+      <thead className="sticky top-0 bg-gray-200 shadow">
+        <tr className="text-gray-600 uppercase text-sm">
+          <th className="py-3 px-4 text-left">Full Name</th>
+          <th className="py-3 px-4 text-left">Email</th>
+          <th className="py-3 px-4 text-left">Designation</th>
+          <th className="py-3 px-4 text-left">Total Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        {displayedCustomers.map((customer, index) => (
+          <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
+            <td className="py-2 px-4 truncate">{customer.name}</td>
+            <td className="py-2 px-4 truncate">{customer.email || "N/A"}</td>
+            <td className="py-2 px-4 truncate">{customer.designation}</td>
+            <td className="py-2 px-4 text-center">{customer.totalSales}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Pagination Controls */}
+  <div className="flex justify-center mt-2 space-x-2">
+  <button
+    onClick={() => setCustomerPage((prev) => Math.max(prev - 1, 1))}
+    disabled={customerPage === 1}
+    className="px-3 py-2 text-sm rounded-md bg-blue-700 text-white disabled:bg-gray-300"
+  >
+    Prev
+  </button>
+
+  {[...Array(totalCustomerPages)].map((_, i) => (
+    <button
+      key={i}
+      onClick={() => setCustomerPage(i + 1)}
+      className={`px-3 py-2 text-sm rounded-md ${
+        customerPage === i + 1 ? "bg-blue-700 text-white" : "bg-gray-100"
+      }`}
+    >
+      {i + 1}
+    </button>
+  ))}
+
+  <button
+    onClick={() => setCustomerPage((prev) => Math.min(prev + 1, totalCustomerPages))}
+    disabled={customerPage === totalCustomerPages}
+    className="px-3 py-2 text-sm rounded-md bg-blue-700 text-white disabled:bg-gray-300"
+  >
+    Next
+  </button>
+</div>
+
+</div>
+
+
+
       </div>
     </div>
   );
 };
 
 export default SalesManagement;
-
-
-
-
-
-
-
-
-
-

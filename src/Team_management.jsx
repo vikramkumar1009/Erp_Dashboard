@@ -26,18 +26,18 @@ function Team_Management({ isSidebarOpen }) {
     fetchEmployees();
   }, [user]);
 
-  // Fetch Employees & Total Sales
+  // Fetch Employees & Incentives
   const fetchEmployees = async () => {
     setLoading(true);
     try {
       const response = await axios.get("https://erp-r0hx.onrender.com/api/employee/");
       const employeesData = response.data || [];
 
-      // Fetch total sales for each employee
+      // Fetch incentives for each employee
       const updatedEmployees = await Promise.all(
         employeesData.map(async (employee) => {
-          const totalSales = await fetchTotalSales(employee._id);
-          return { ...employee, totalSales };
+          
+          return { ...employee};
         })
       );
 
@@ -50,14 +50,14 @@ function Team_Management({ isSidebarOpen }) {
     }
   };
 
-  // Fetch Total Sales for Employees
-  const fetchTotalSales = async (employeeId) => {
+  // Fetch Incentives for Employees
+  const fetchIncentives = async (employeeId) => {
     try {
-      const response = await axios.get(`https://erp-r0hx.onrender.com/api/sales/${employeeId}`);
-      return response.data.totalSales || 0;
+      const response = await axios.get(`https://erp-r0hx.onrender.com/api/incentiveSlab/${employeeId}`);
+      return response.data || [];
     } catch (err) {
-      console.error(`❌ Error fetching total sales for Employee ID ${employeeId}:`, err);
-      return 0;
+      console.error("❌ Error fetching incentives:", err);
+      return [];
     }
   };
 
@@ -132,63 +132,83 @@ function Team_Management({ isSidebarOpen }) {
           )}
 
           {/* Team Management Table */}
-          <div className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-lg mt-6">
-            <h3 className="text-md font-semibold mb-4">Team Members</h3>
-            {loading ? (
-              <p className="text-center">Loading employees...</p>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse text-gray-700 min-w-[800px]">
-                    <thead>
-                      <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th className="py-3 px-4 text-left">ID</th>
-                        <th className="py-3 px-4 text-left">Full Name</th>
-                        <th className="py-3 px-4 text-left">Email</th>
-                        <th className="py-3 px-4 text-left">Designation</th>
-                        <th className="py-3 px-4 text-left">Total Sales</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-gray-600 text-sm font-light">
-                      {paginatedEmployees.map((emp, index) => (
-                        <tr
-                          key={emp._id}
-                          className={`border-b border-gray-200 hover:bg-gray-200 ${
-                            index % 2 === 0 ? "bg-blue-50" : "bg-gray-50"
-                          }`}
-                        >
-                          <td className="py-3 px-4 whitespace-nowrap">{emp._id}</td>
-                          <td className="py-3 px-4">{emp.user?.name || "N/A"}</td>
-                          <td className="py-3 px-4">{emp.user?.email || "N/A"}</td>
-                          <td className="py-3 px-4">{emp.designation || "N/A"}</td>
-                          <td className="py-3 px-4 font-bold text-blue-600">${emp.totalSales || "0"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg mt-6 w-full">
+  {/* Heading */}
+  <h3 className="text-xl font-semibold mb-6 text-center text-gray-800">Team Members</h3>
 
-                {/* Pagination Controls */}
-                <div className="flex justify-center mt-4 space-x-2">
-                  <button className="px-4 py-2 bg-blue-700 text-white rounded-lg" disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
-                    Prev
-                  </button>
-                  {[...Array(totalPages)].map((_, i) => (
-                    <button
-                      key={i}
-                      className={`px-4 py-2 rounded-lg ${currentPage === i + 1 ? "bg-blue-700 text-white" : "bg-gray-200"}`}
-                      onClick={() => setCurrentPage(i + 1)}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                  <button className="px-4 py-2 bg-blue-700 text-white rounded-lg" disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}>
-                    Next
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
+  {/* Loading State */}
+  {loading ? (
+    <p className="text-center text-lg text-gray-600">Loading employees...</p>
+  ) : (
+    <>
+      {/* Table Container */}
+      <div className="overflow-x-auto w-full">
+  <table className="w-full border-collapse text-gray-700 text-lg bg-gray-50 shadow-md rounded-lg font-[Inter]">
+    <thead>
+      <tr className="bg-blue-700 text-white uppercase text-md leading-normal">
+        <th className="py-4 px-6 text-left">ID</th>
+        <th className="py-4 px-6 text-left">Full Name</th>
+        <th className="py-4 px-6 text-left">Email</th>
+        <th className="py-4 px-6 text-left">Designation</th>
+        <th className="py-4 px-6 text-left">Total Sales</th>
+      </tr>
+    </thead>
+    <tbody className="text-gray-800 text-md">
+      {paginatedEmployees.map((emp, index) => (
+        <tr
+          key={emp._id}
+          className={`border-b border-gray-300 hover:bg-gray-200 transition-all duration-300 ${
+            index % 2 === 0 ? "bg-blue-50" : "bg-white"
+          }`}
+        >
+          <td className="py-4 px-6 whitespace-nowrap">{emp._id}</td>
+          <td className="py-4 px-6">{emp.user?.name || "N/A"}</td>
+          <td className="py-4 px-6">{emp.user?.email || "N/A"}</td>
+          <td className="py-4 px-6">{emp.designation || "N/A"}</td>
+          <td className="py-4 px-6 font-bold text-blue-600">${emp.totalSales || "0"}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6 space-x-3">
+        <button
+          className={`px-5 py-2 text-lg rounded-lg ${
+            currentPage === 1 ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-blue-700 text-white hover:bg-blue-800"
+          }`}
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        >
+          Prev
+        </button>
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            className={`px-5 py-2 text-lg rounded-lg ${
+              currentPage === i + 1 ? "bg-blue-700 text-white" : "bg-gray-200 hover:bg-gray-300"
+            }`}
+            onClick={() => setCurrentPage(i + 1)}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          className={`px-5 py-2 text-lg rounded-lg ${
+            currentPage === totalPages ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-blue-700 text-white hover:bg-blue-800"
+          }`}
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+        >
+          Next
+        </button>
+      </div>
+    </>
+  )}
+</div>
+
         </div>
       </main>
     </div>
