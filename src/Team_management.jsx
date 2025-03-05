@@ -26,20 +26,20 @@ function Team_Management({ isSidebarOpen }) {
     fetchEmployees();
   }, [user]);
 
-// Fetch Employees & Sales
-const fetchEmployees = async () => {
-  setLoading(true);
-  try {
-    const response = await axios.get("https://erp-r0hx.onrender.com/api/employee/");
-    const employeesData = response.data || [];
+  // Fetch Employees & Total Sales
+  const fetchEmployees = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("https://erp-r0hx.onrender.com/api/employee/");
+      const employeesData = response.data || [];
 
-    // Fetch total sales for each employee
-    const updatedEmployees = await Promise.all(
-      employeesData.map(async (employee) => {
-        const totalSales = await fetchTotalSales(employee._id);
-        return { ...employee, totalSales };
-      })
-    );;
+      // Fetch total sales for each employee
+      const updatedEmployees = await Promise.all(
+        employeesData.map(async (employee) => {
+          const totalSales = await fetchTotalSales(employee._id);
+          return { ...employee, totalSales };
+        })
+      );
 
       setEmployees(updatedEmployees);
     } catch (err) {
@@ -50,18 +50,18 @@ const fetchEmployees = async () => {
     }
   };
 
-  // Fetch Incentives for Employees
-  const fetchIncentives = async (employeeId) => {
+  // Fetch Total Sales for Employees
+  const fetchTotalSales = async (employeeId) => {
     try {
-      const response = await axios.get(`https://erp-r0hx.onrender.com/api/incentiveSlab/${employeeId}`);
-      return response.data || [];
+      const response = await axios.get(`https://erp-r0hx.onrender.com/api/sales/${employeeId}`);
+      return response.data.totalSales || 0;
     } catch (err) {
-      console.error("❌ Error fetching incentives:", err);
-      return [];
+      console.error(`❌ Error fetching total sales for Employee ID ${employeeId}:`, err);
+      return 0;
     }
   };
 
-  // ✅ Refresh Data on Add, Edit, Delete
+  // Refresh Data on Add, Edit, Delete
   const handleRefresh = async () => {
     await fetchEmployees();
   };
@@ -127,7 +127,7 @@ const fetchEmployees = async () => {
               onClose={() => setModalType(null)}
               employees={employees}
               setEmployees={setEmployees}
-              onRefresh={handleRefresh} // ✅ Pass refresh function
+              onRefresh={handleRefresh}
             />
           )}
 
@@ -161,7 +161,7 @@ const fetchEmployees = async () => {
                           <td className="py-3 px-4">{emp.user?.name || "N/A"}</td>
                           <td className="py-3 px-4">{emp.user?.email || "N/A"}</td>
                           <td className="py-3 px-4">{emp.designation || "N/A"}</td>
-                          <td className="py-3 px-4">{emp.totalSales}</td>
+                          <td className="py-3 px-4 font-bold text-blue-600">${emp.totalSales || "0"}</td>
                         </tr>
                       ))}
                     </tbody>

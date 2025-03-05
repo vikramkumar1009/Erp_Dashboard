@@ -2,9 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { FaEllipsisV } from "react-icons/fa";
-import AuthContext from "./AuthContext/AuthContext"; // ✅ Import Auth Context
+import AuthContext from "./AuthContext/AuthContext";
 import AlertBox from "./AlertBox";
-
 const yearlySalesData = [
   { month: "Jan", target: 1000, achieved: 800 },
   { month: "Feb", target: 1200, achieved: 900 },
@@ -44,20 +43,18 @@ const deperformingEmployees = [
 ];
 
 const PerformanceTrackingMain = ({ isSidebarOpen }) => {
-  const { user } = useContext(AuthContext); // ✅ Get user from AuthContext
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const [alertOpen, setAlertOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState("");
 
-  // ✅ Redirect to login if user is not authenticated
   useEffect(() => {
     if (!user) {
       navigate("/signin");
     }
   }, [user, navigate]);
 
-  if (!user) return null; // Prevent rendering before redirection
+  if (!user) return null;
 
   const openAlert = (employee) => {
     setSelectedEmployee(employee);
@@ -65,12 +62,7 @@ const PerformanceTrackingMain = ({ isSidebarOpen }) => {
   };
 
   return (
-    <div
-      className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
-        isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-full"
-      }`}
-    >
-      {/* Header */}
+    <div className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-full"}`}>  
       <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
         <h3 className="text-lg font-semibold mb-4">INDIVIDUAL AND TEAM SALES AGAINST TARGET (YEARLY)</h3>
         <ResponsiveContainer width="100%" height={200}>
@@ -85,38 +77,36 @@ const PerformanceTrackingMain = ({ isSidebarOpen }) => {
         </ResponsiveContainer>
       </div>
 
-      {/* Quarterly Performance Table */}
       <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg mt-6">
         <h3 className="text-lg font-semibold mb-4">TEAMS QUARTERLY PERFORMANCE</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-gray-700 text-lg">
+          <table className="w-full border border-gray-300 text-gray-700 text-sm md:text-base">
             <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
-                <th className="py-3 px-6">TEAM NO</th>
-                <th className="py-3 px-6">Sales Achieved</th>
-                <th className="py-3 px-6">Target Assigned</th>
-                <th className="py-3 px-6">Achievement Rate</th>
-                <th className="py-3 px-6">Incentives Earned</th>
-                <th className="py-3 px-6">Actions</th>
+              <tr className="bg-gray-200 text-gray-600 uppercase text-left">
+                <th className="py-3 px-4">TEAM NO</th>
+                <th className="py-3 px-4">Sales Achieved</th>
+                <th className="py-3 px-4">Target Assigned</th>
+                <th className="py-3 px-4">Achievement Rate</th>
+                <th className="py-3 px-4">Incentives Earned</th>
+                <th className="py-3 px-4">Actions</th>
               </tr>
             </thead>
             <tbody>
               {quarterlyPerformance.map((row, index) => (
-                <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
-                  <td className="py-3 px-6">{row.team}</td>
-                  <td className="py-3 px-6">{row.achieved}</td>
-                  <td className="py-3 px-6">{row.target}</td>
-                  <td className="py-3 px-6">{row.rate}</td>
-                  <td className="py-3 px-6">{row.incentives}</td>
-                  <td className="py-3 px-6"><FaEllipsisV /></td>
+                <tr  key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}> 
+                  <td className="py-3 px-4">{row.team}</td>
+                  <td className="py-3 px-4">{row.achieved}</td>
+                  <td className="py-3 px-4">{row.target}</td>
+                  <td className="py-3 px-4">{row.rate}</td>
+                  <td className="py-3 px-4">{row.incentives}</td>
+                  <td className="py-3 px-4 text-center"><FaEllipsisV /></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-
-      {/* Incentive Distribution & Deperforming Employees */}
+      
       <div className="flex flex-col md:grid md:grid-cols-2 gap-6 mt-6">
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold mb-4">Incentive Distribution</h3>
@@ -133,18 +123,19 @@ const PerformanceTrackingMain = ({ isSidebarOpen }) => {
 
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold mb-4">Deperforming Employees</h3>
-          {deperformingEmployees.map((employee, index) => (
-            <div key={index} className="flex justify-between items-center bg-gray-100 p-3 rounded-lg mb-2">
-              <p>{employee}</p>
-              <button className="bg-red-500 text-white text-xs px-2 py-1 rounded" onClick={() => openAlert(employee)}>
-                ALERT
-              </button>
-            </div>
-          ))}
+          <div className="max-h-60 overflow-y-auto">
+            {deperformingEmployees.map((employee, index) => (
+              <div key={index} className="flex justify-between items-center bg-gray-100 p-3 rounded-lg mb-2">
+                <p>{employee}</p>
+                <button className="bg-red-500 text-white text-xs px-2 py-1 rounded" onClick={() => openAlert(employee)}>
+                  ALERT
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Alert Modal */}
       {alertOpen && <AlertBox selectedEmployee={selectedEmployee} onClose={() => setAlertOpen(false)} />}
     </div>
   );
