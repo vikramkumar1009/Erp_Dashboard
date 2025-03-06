@@ -40,12 +40,12 @@ export default function LandingPage() {
               </button>
               </a> 
            
-              <a href="https://erp-dashboard-azure.vercel.app/"> 
+              <Link to="/managerdash">
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Manager Dashboard
               </button>
            
-              </a>
+              </Link>
               <a href="#"> 
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Employee Portal
