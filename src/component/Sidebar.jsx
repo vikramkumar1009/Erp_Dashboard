@@ -5,7 +5,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation(); // Get current URL path
 
   const navItems = [
-    { path: "/", label: "Manager Dash" },
+    { path: "/managerdash", label: "Manager Dash" },
     { path: "/sales-management", label: "Sales Management" },
     { path: "/sales-contest", label: "Sales Contest" },
     { path: "/team-management", label: "Team Management" },

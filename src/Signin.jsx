@@ -17,7 +17,7 @@ const Signin = () => {
 
     try {
       await login(email, password); // Call login from AuthContext
-      navigate("/"); // Redirect on success
+      navigate("/managerdash"); // Redirect on success
     } catch (err) {
       setError("Invalid email or password"); // Show error message
     }

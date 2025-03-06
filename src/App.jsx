@@ -9,6 +9,7 @@ import SalesManagement from "./SalesManagement";
 import Team_management from "./Team_management";
 import Signin from "./Signin";
 import SignUp from "./SignUp";
+import LandingPage from "./LandingPage";
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -38,13 +39,14 @@ function AppContent({ isSidebarOpen, setSidebarOpen }) {
         )}
 
         <Routes>
-          <Route path="/" element={<ManagerDash isSidebarOpen={isSidebarOpen} />} />
+          <Route path="/managerdash" element={<ManagerDash isSidebarOpen={isSidebarOpen} />} />
           <Route path="/performance-tracking" element={<PerformanceTrackingMain isSidebarOpen={isSidebarOpen} />} />
           <Route path="/sales-contest" element={<SalesContest isSidebarOpen={isSidebarOpen} />} />
           <Route path="/sales-management" element={<SalesManagement isSidebarOpen={isSidebarOpen} />} />
           <Route path="/team-management" element={<Team_management isSidebarOpen={isSidebarOpen} />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>
     </div>
