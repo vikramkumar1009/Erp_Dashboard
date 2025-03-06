@@ -41,7 +41,7 @@ export default function LandingPage() {
               </button>
               </a> 
            
-              <Link to="/signin">
+              <Link to="/managerdash">
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Manager Dashboard
               </button>
