@@ -193,7 +193,7 @@ const SalesManagement = ({ isSidebarOpen }) => {
 
         {/* Customer Details Table */}
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px] overflow-hidden">
-  <h3 className="text-lg font-semibold mb-2">Customer Details</h3>
+  <h3 className="text-lg font-semibold mb-4">Customer Details</h3>
   <div className="overflow-y-auto max-h-[300px]">
     <table className="w-full text-gray-700 border-collapse">
       <thead className="sticky top-0 bg-gray-200 shadow">
