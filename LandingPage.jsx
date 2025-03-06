@@ -57,9 +57,9 @@ export default function LandingPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-blue-50 p-4 h-20 md:p-8 overflow-auto w-full transition-all duration-300 ${isSidebarOpen ? 'md:ml-72' : 'ml-0'}` mt-20">
+      <main className="flex-1 bg-blue-50 p-4  md:p-8 overflow-auto w-full transition-all duration-300 ${isSidebarOpen ? 'md:ml-72' : 'ml-0'}` mt-20">
         {/* Navbar */}
-        <div className="fixed top-0 left-0 right-0 md:left-72 bg-blue-900 text-white p-4 shadow flex justify-between items-center z-50">
+        <div className="fixed top-0 h-20 left-0 right-0 md:left-72 bg-blue-900 text-white p-4 shadow flex justify-between items-center z-50">
           <FaBars
             className="text-2xl cursor-pointer md:hidden"
             onClick={() => setIsSidebarOpen(true)}
