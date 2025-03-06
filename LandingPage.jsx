@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaSearch,
   FaUserCircle,
@@ -40,12 +41,12 @@ export default function LandingPage() {
               </button>
               </a> 
            
-              <a href="https://erp-dashboard-azure.vercel.app/"> 
+              <Link to="/managerdash">
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Manager Dashboard
               </button>
            
-              </a>
+              </Link>
               <a href="#"> 
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Employee Portal
@@ -57,9 +58,9 @@ export default function LandingPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-blue-50 p-4  md:p-8 overflow-auto w-full transition-all duration-300 ${isSidebarOpen ? 'md:ml-72' : 'ml-0'}` mt-20">
+      <main className="flex-1 bg-blue-50 h  p-4 md:p-8 overflow-auto w-full transition-all duration-300 ${isSidebarOpen ? 'md:ml-72' : 'ml-0'}` mt-10">
         {/* Navbar */}
-        <div className="fixed top-0 h-20 left-0 right-0 md:left-72 bg-blue-900 text-white p-4 shadow flex justify-between items-center z-50">
+        <div className="fixed top-0 left-0 right-0 md:left-72 h-20 bg-blue-900 text-white p-4 shadow flex justify-between items-center z-50">
           <FaBars
             className="text-2xl cursor-pointer md:hidden"
             onClick={() => setIsSidebarOpen(true)}
