@@ -136,7 +136,7 @@ const SalesManagement = ({ isSidebarOpen }) => {
         {/* Product Sales Table */}
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px]">
           <h3 className="text-lg font-semibold mb-4">Product Sales</h3>
-          <div className="overflow-x-auto">
+          <div className="overflow-y-auto max-h-[300px]">
             <table className="w-full text-gray-700">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
