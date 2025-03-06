@@ -165,7 +165,7 @@ function Team_Management({ isSidebarOpen }) {
           <td className="py-4 px-6">{emp.user?.name || "N/A"}</td>
           <td className="py-4 px-6">{emp.user?.email || "N/A"}</td>
           <td className="py-4 px-6">{emp.designation || "N/A"}</td>
-          <td className="py-4 px-6 font-bold text-blue-600">${emp.totalSales || "0"}</td>
+          <td className="py-4 px-6 font-bold text-blue-600 text-center">${emp.totalSales || "0"}</td>
         </tr>
       ))}
     </tbody>

@@ -150,9 +150,9 @@ const SalesManagement = ({ isSidebarOpen }) => {
                 {displayedProducts.map((item, index) => (
                   <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
                     <td className="py-3 px-4">{item.productName || "N/A"}</td>
-                    <td className="py-3 px-4">{item.quantity}</td>
-                    <td className="py-3 px-4">${item.amount || "0"}</td>
-                    <td className="py-3 px-4">{new Date(item.dateOfSale).toLocaleDateString("en-GB") || "N/A"}</td>
+                    <td className="py-3 px-4 text-center">{item.quantity}</td>
+                    <td className="py-3 px-4 text-center">${item.amount || "0"}</td>
+                    <td className="py-3 px-4 text-center">{new Date(item.dateOfSale).toLocaleDateString("en-GB") || "N/A"}</td>
                   </tr>
                 ))}
               </tbody>

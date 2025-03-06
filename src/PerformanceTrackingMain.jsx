@@ -83,23 +83,23 @@ const PerformanceTrackingMain = ({ isSidebarOpen }) => {
           <table className="w-full border border-gray-300 text-gray-700 text-sm md:text-base">
             <thead>
               <tr className="bg-gray-200 text-gray-600 uppercase text-left">
-                <th className="py-3 px-4">TEAM NO</th>
-                <th className="py-3 px-4">Sales Achieved</th>
-                <th className="py-3 px-4">Target Assigned</th>
-                <th className="py-3 px-4">Achievement Rate</th>
-                <th className="py-3 px-4">Incentives Earned</th>
-                <th className="py-3 px-4">Actions</th>
+                <th className="py-3 px-4 text-center">TEAM NO</th>
+                <th className="py-3 px-4 text-center">Sales Achieved</th>
+                <th className="py-3 px-4 text-center">Target Assigned</th>
+                <th className="py-3 px-4 text-center">Achievement Rate</th>
+                <th className="py-3 px-4 text-center">Incentives Earned</th>
+               
               </tr>
             </thead>
             <tbody>
               {quarterlyPerformance.map((row, index) => (
                 <tr  key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}> 
-                  <td className="py-3 px-4">{row.team}</td>
-                  <td className="py-3 px-4">{row.achieved}</td>
-                  <td className="py-3 px-4">{row.target}</td>
-                  <td className="py-3 px-4">{row.rate}</td>
-                  <td className="py-3 px-4">{row.incentives}</td>
-                  <td className="py-3 px-4 text-center"><FaEllipsisV /></td>
+                  <td className="py-3 px-4 text-center">{row.team}</td>
+                  <td className="py-3 px-4 text-center">{row.achieved}</td>
+                  <td className="py-3 px-4 text-center">{row.target}</td>
+                  <td className="py-3 px-4 text-center">{row.rate}</td>
+                  <td className="py-3 px-4 text-center">{row.incentives}</td>
+                  
                 </tr>
               ))}
             </tbody>
