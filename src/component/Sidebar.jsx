@@ -49,13 +49,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         </div>
 
         {/* User Profile */}
-        <div className="flex items-center p-4 border-t border-gray-500">
-          <FaUserCircle className="text-4xl mr-2" />
-          <div>
-            <p className="font-semibold">Allen Frank</p>
-            <p className="text-sm text-gray-300">allen@gmail.com</p>
-          </div>
-        </div>
+      
       </aside>
 
       {/* Overlay when sidebar is open on mobile */}
