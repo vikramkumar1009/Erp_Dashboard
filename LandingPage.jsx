@@ -47,7 +47,7 @@ export default function LandingPage() {
               </button>
            
               </Link>
-              <a href="#"> 
+              <a href="https://emp-dashboard-ochre.vercel.app/"> 
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Employee Portal
               </button>
