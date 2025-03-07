@@ -77,6 +77,14 @@ const Signin = () => {
             LOG IN
           </button>
         </form>
+        <Link to="/" >
+          <button
+            type="submit"
+            className="w-full mt-5 bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Go To HomePage
+          </button>
+          </Link>
       </div>
     </div>
   );
