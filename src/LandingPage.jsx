@@ -28,30 +28,32 @@ export default function LandingPage() {
               onClick={() => setIsSidebarOpen(false)}
             />
           </div>
-          <nav className="space-y-3">
+           <nav className="space-y-3">
             
             
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Home
               </button>
-           
-           <a href="http://my-app-xyg2.vercel.app">
+           <Link to={"http://my-app-xyg2.vercel.app"}>
+           {/* <a href="http://my-app-xyg2.vercel.app"> */}
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Admin Panel
               </button>
-              </a> 
-           
+              {/* </a>  */}
+              </Link>
               <Link to="/managerdash">
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Manager Dashboard
               </button>
            
               </Link>
-              <a href="https://emp-dashboard-ochre.vercel.app/"> 
+              <Link to={"https://emp-dashboard-ochre.vercel.app/"}>
+              {/* <a href="https://emp-dashboard-ochre.vercel.app/">  */}
               <button className="w-full text-left py-3 px-4 hover:bg-blue-700 rounded">
                 Employee Portal
               </button>
-              </a>
+              {/* </a> */}
+              </Link>
           </nav>
         </div>
        
