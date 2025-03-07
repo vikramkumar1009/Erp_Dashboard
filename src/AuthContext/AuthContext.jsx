@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     } catch (error) {
       console.error("Signup failed:", error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Signup failed");
+      throw new Error(error.response?.data?.message  && "Email should be last from einfratech.com or .tech only and password should be alphanumeric password");
     }
   };
 
