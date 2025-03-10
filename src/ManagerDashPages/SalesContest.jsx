@@ -8,7 +8,7 @@ const SalesContest = () => {
     return (
       <div className="p-6 bg-white rounded-lg shadow-lg">
         <h3 className="text-lg font-semibold mb-4">Sales Contest Results</h3>
-        <table className="w-full text-gray-700">
+        <table className="w-screen text-gray-700">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
               <th className="py-3 px-6">Sales Agent</th>
