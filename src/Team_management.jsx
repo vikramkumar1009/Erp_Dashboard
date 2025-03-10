@@ -83,7 +83,7 @@ function Team_Management({ isSidebarOpen }) {
     <div>
       <main
         className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
-          isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-full"
+          isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-screen"
         }`}
       >
         <div className="mt-5">
