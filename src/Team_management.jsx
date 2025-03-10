@@ -152,7 +152,7 @@ function Team_Management({ isSidebarOpen }) {
               <>
                 {/* Table Container */}
                 <div className="overflow-x-auto">
-                  <table className="w-screen border-collapse text-gray-700 text-sm md:text-lg bg-gray-50 shadow-md rounded-lg font-[Inter]">
+                  <table className="w-full border-collapse text-gray-700 text-sm md:text-lg bg-gray-50 shadow-md rounded-lg font-[Inter]">
                     <thead className="sticky top-0 bg-blue-700 text-white uppercase text-sm md:text-md leading-normal">
                       <tr>
                         <th className="py-3 px-4 text-left">ID</th>
