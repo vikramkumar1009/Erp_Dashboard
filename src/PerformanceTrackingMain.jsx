@@ -62,7 +62,7 @@ const PerformanceTrackingMain = ({ isSidebarOpen }) => {
   };
 
   return (
-    <div className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-full"}`}>  
+    <div className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-screen"}`}>  
       <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
         <h3 className="text-lg font-semibold mb-4">INDIVIDUAL AND TEAM SALES AGAINST TARGET (YEARLY)</h3>
         <ResponsiveContainer width="100%" height={200}>
