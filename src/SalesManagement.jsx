@@ -137,7 +137,7 @@ const SalesManagement = ({ isSidebarOpen }) => {
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px]">
           <h3 className="text-lg font-semibold mb-2">Product Sales</h3>
           <div className="overflow-y-auto max-h-[300px]">
-            <table className="w-full text-gray-700">
+            <table className="w-screen text-gray-700 border-collapse">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
                   <th className="py-3 px-4 text-left">Product Name</th>
@@ -192,7 +192,7 @@ const SalesManagement = ({ isSidebarOpen }) => {
         </div>
 
         {/* Customer Details Table */}
-        <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full h-[400px] overflow-hidden">
+        <div className="bg-white p-4  md:p-6 rounded-lg shadow-lg w-full h-[400px] overflow-hidden">
   <h3 className="text-lg font-semibold mb-2">Customer Details</h3>
   <div className="overflow-y-auto max-h-[300px]">
     <table className="w-full text-gray-700 border-collapse">
