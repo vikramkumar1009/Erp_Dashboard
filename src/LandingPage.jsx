@@ -70,11 +70,7 @@ export default function LandingPage() {
           <h2 className="text-lg font-semibold">Welcome to ERP System</h2>
           <div className="hidden md:flex items-center gap-4">
             <FaBell className="text-xl cursor-pointer" />
-            <img
-              src={profile}
-              alt="User"
-              className="w-8 h-8 rounded-full border"
-            />
+            
           </div>
         </div>
 
@@ -89,34 +85,32 @@ export default function LandingPage() {
               An intuitive ERP system designed to streamline administration,
               enhance management, and empower employees.
             </p>
-            <button className="mt-6 px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:bg-gray-100">
-              Get Started
-            </button>
+           
           </div>
 
           {/* Features Section */}
           <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-              <h3 className="text-2xl font-semibold text-blue-900">
+            <Link to={"http://my-app-xyg2.vercel.app"}> <h3 className="text-2xl font-semibold text-blue-900">
                 Admin Panel
-              </h3>
+              </h3></Link> 
               <p className="text-gray-600 mt-2">
                 Manage users, permissions, and company settings effortlessly.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-              <h3 className="text-2xl font-semibold text-blue-900">
+            <Link to="/managerdash"> <h3 className="text-2xl font-semibold text-blue-900">
                 Manager Dashboard
-              </h3>
+              </h3></Link>
               <p className="text-gray-600 mt-2">
                 Track employee performance, manage projects, and analyze
                 reports.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-              <h3 className="text-2xl font-semibold text-blue-900">
+            <Link to={"https://employee-dash-rho.vercel.app/"}> <h3 className="text-2xl font-semibold text-blue-900">
                 Employee Portal
-              </h3>
+              </h3></Link>
               <p className="text-gray-600 mt-2">
                 Access schedules, tasks, and communication tools in one place.
               </p>
