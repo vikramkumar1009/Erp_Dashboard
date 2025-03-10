@@ -25,14 +25,9 @@ const Signin = () => {
 
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-blue-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-screen max-w-md">
         <h2 className="text-2xl font-bold text-center text-blue-900 mb-2">MANAGER LOGIN</h2>
-        <p className="text-sm text-center mb-6">
-          Don’t have an account?{" "}
-          <Link to="/signup" className="text-blue-700 font-semibold">
-            Signup
-          </Link>
-        </p>
+        
 
         {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
 
@@ -77,14 +72,17 @@ const Signin = () => {
             LOG IN
           </button>
         </form>
-        <Link to="/" >
+
+        
+          <Link to="/" >
           <button
             type="submit"
-            className="w-full mt-5 bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full mt-5 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Go To HomePage
           </button>
           </Link>
+      
       </div>
     </div>
   );
