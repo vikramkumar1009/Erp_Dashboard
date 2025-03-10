@@ -24,11 +24,11 @@ const ManagerDash = ({ isSidebarOpen }) => {
   }
 
   return (
-    <div
-      className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
-        isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-screen"
-      }`}
-    >
+  
+ <div className={`mt-20 p-4 md:p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
+      isSidebarOpen ? "lg:ml-72 lg:w-[calc(100%-18rem)]" : "w-screen"
+    }`}>
+
       <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">
         Welcome, {user.name || "Manager"}!
       </h1>
