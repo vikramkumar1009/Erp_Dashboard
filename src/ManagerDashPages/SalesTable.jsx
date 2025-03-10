@@ -53,7 +53,7 @@ const SalesTable = () => {
       ) : (
         <>
           {/* Sales Table */}
-          <table className="w-full text-gray-700">
+          <table className="w-screen text-gray-700">
             <thead>
               <tr className="bg-gray-200 text-gray-600 uppercase text-sm">
                 <th className="py-3 px-6">Product Name</th>
